@@ -1,7 +1,14 @@
 import { trainingAPI } from './api';
 
 export default class TrainingService {
+
   // Model management
+  // Thêm hàm này nếu chưa có
+  static async getModelById(id) {
+    const response = await trainingAPI.get(`/models/${id}`);
+    return response.data;
+  }
+
   static async getAllModels() {
     const response = await trainingAPI.get('/models');
     return response.data;
@@ -9,6 +16,12 @@ export default class TrainingService {
 
   static async getActiveModel() {
     const response = await trainingAPI.get('/models/active');
+    return response.data;
+  }
+
+  // Thêm phương thức này
+  static async getDatasetById(id) {
+    const response = await trainingAPI.get(`/samples/datasets/${id}`);
     return response.data;
   }
 
