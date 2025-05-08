@@ -57,7 +57,7 @@ const SampleUpload = () => {
         setUploading,
         setError,
         (response) => {
-          setSuccess('Tải lên mẫu mống mắt thành công!');
+          setSuccess('Tải lên mẫu đồng tử mắt thành công!');
           setFile(null);
           setPreview(null);
         }
@@ -82,7 +82,7 @@ const SampleUpload = () => {
       </Button>
 
       <Card>
-        <Card.Header as="h5">Tải lên mẫu mống mắt mới</Card.Header>
+        <Card.Header as="h5">Tải lên mẫu đồng tử mắt mới</Card.Header>
         <Card.Body>
           {member && (
             <div className="mb-4">
@@ -99,7 +99,7 @@ const SampleUpload = () => {
 
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label>Chọn ảnh khuôn mặt (hệ thống sẽ tự động trích xuất mống mắt)</Form.Label>
+              {/* <Form.Label>Chọn ảnh khuôn mặt (hệ thống sẽ tự động trích xuất đồng tử mắt)</Form.Label> */}
               <Form.Control 
                 type="file" 
                 accept="image/*"

@@ -120,7 +120,7 @@ const DetectionForm = () => {
       </Button>
 
       <Card>
-        <Card.Header as="h5">Nhận dạng mống mắt</Card.Header>
+        <Card.Header as="h5">Nhận dạng đồng tử mắt</Card.Header>
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
 
@@ -207,7 +207,7 @@ const DetectionForm = () => {
                     />
                   </Col>
                   <Col md={6}>
-                    <h6>Mống mắt đã phát hiện:</h6>
+                    <h6>đồng tử mắt đã phát hiện:</h6>
                     {result.detected_eyes.length > 0 ? (
                       <div>
                         {result.detected_eyes.map((eye, index) => (
@@ -225,7 +225,7 @@ const DetectionForm = () => {
                         ))}
                       </div>
                     ) : (
-                      <p>Không tìm thấy mống mắt nào trong ảnh.</p>
+                      <p>Không tìm thấy đồng tử mắt nào trong ảnh.</p>
                     )}
                   </Col>
                 </Row>

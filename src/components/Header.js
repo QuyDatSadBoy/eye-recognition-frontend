@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
-        <Navbar.Brand as={Link} to="/">Hệ thống Nhận dạng Mống mắt</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Hệ thống Nhận dạng đồng tử mắt</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

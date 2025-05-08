@@ -20,7 +20,7 @@ const MemberDetail = () => {
     // Tải thông tin nhân viên
     MemberController.loadMemberById(id, setMember, setLoading, setError);
     
-    // Tải danh sách mẫu mống mắt
+    // Tải danh sách mẫu đồng tử mắt
     loadSamples();
   }, [id]);
 
@@ -29,13 +29,13 @@ const MemberDetail = () => {
   };
 
   const handleDeleteSample = async (sampleId) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa mẫu mống mắt này?')) {
+    if (window.confirm('Bạn có chắc chắn muốn xóa đồng tử mắt mắt này?')) {
       await EyeSampleController.deleteSample(
         sampleId, 
         setLoading, 
         setError,
         () => {
-          alert('Xóa mẫu mống mắt thành công!');
+          alert('Xóa mẫu đồng tử mắt thành công!');
           loadSamples();
         }
       );
@@ -48,7 +48,7 @@ const MemberDetail = () => {
       setLoading, 
       setError,
       () => {
-        alert('Vô hiệu hóa mẫu mống mắt thành công!');
+        alert('Vô hiệu hóa mẫu đồng tử mắt thành công!');
         loadSamples();
       }
     );
@@ -108,7 +108,7 @@ const MemberDetail = () => {
           <Card>
             <Card.Header>
               <div className="d-flex justify-content-between align-items-center">
-                <h5 className="mb-0">Mẫu mống mắt</h5>
+                <h5 className="mb-0">Mẫu đồng tử mắt</h5>
                 <Link to={`/members/${id}/samples/upload`}>
                   <Button variant="primary" size="sm">
                     <FontAwesomeIcon icon={faPlus} /> Thêm mẫu mới
@@ -132,7 +132,7 @@ const MemberDetail = () => {
                     {samples.map(sample => (
                       <tr key={sample.id}>
                         <td>{sample.id}</td>
-                        <td>
+                        {/* <td>
                           {sample.eyeImageLink && (
                             <img 
                               src={`http://localhost:8080${sample.eyeImageLink}`} 
@@ -140,7 +140,21 @@ const MemberDetail = () => {
                               style={{ height: '50px' }} 
                             />
                           )}
-                        </td>
+                        </td> */}
+                        <td>
+{sample.eyeImageLink && (
+  <img 
+    src={`http://localhost:8080${sample.eyeImageLink}`} 
+    alt="Eye Sample" 
+    style={{ height: '50px' }} 
+    onError={(e) => {
+      console.error("Lỗi tải ảnh:", sample.eyeImageLink);
+      e.target.onerror = null;
+      e.target.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"%3E%3Crect width="50" height="50" fill="%23f0f0f0"/%3E%3Ctext x="25" y="25" font-family="Arial" font-size="8" text-anchor="middle" dominant-baseline="middle" fill="%23aaa"%3Eđồng tử mắt%3C/text%3E%3C/svg%3E';
+    }}
+  />
+)}
+                            </td>
                         <td>{new Date(sample.captureDate).toLocaleString()}</td>
                         <td>{sample.isActive === 1 ? 'Hoạt động' : 'Vô hiệu'}</td>
                         <td>
@@ -176,7 +190,7 @@ const MemberDetail = () => {
                   </tbody>
                 </Table>
               ) : (
-                <p className="text-center">Nhân viên này chưa có mẫu mống mắt nào.</p>
+                <p className="text-center">Nhân viên này chưa có mẫu đồng tử mắt nào.</p>
               )}
             </Card.Body>
           </Card>
