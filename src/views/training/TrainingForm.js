@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Form, Button, Alert, ProgressBar } from 'react-bootstrap';
-import TrainingController from '../../controllers/TrainingController';
+import DetectEyeDataTrainController from '../../controllers/DetectEyeDataTrainController';
+import TrainDetectionHistoryController from '../../controllers/TrainDetectionHistoryController';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 const TrainingForm = () => {
@@ -29,8 +30,8 @@ const TrainingForm = () => {
     setLoading(true);
     
     try {
-      const data = await TrainingController.getDatasetById(datasetId);
-      setDataset(data.dataset);
+      const data = await DetectEyeDataTrainController.getDetectEyeDataTrainById(datasetId);
+      setDataset(data.training_data);
     } catch (err) {
       setError('Không thể tải thông tin bộ dữ liệu: ' + err.message);
     } finally {
@@ -59,19 +60,18 @@ const TrainingForm = () => {
     }, 1000);
 
     try {
-      const result = await TrainingController.startTraining(
-        datasetId,
+      const result = await TrainDetectionHistoryController.startTraining(
         epochs,
         batchSize,
         imageSize,
-        learningRate
+        learningRate,
+        datasetId
       );
       
       clearInterval(interval);
       setProgress(100);
       setSuccess('Huấn luyện mô hình thành công!');
       
-      // Sau 2 giây sẽ chuyển hướng đến danh sách mô hình
       setTimeout(() => {
         navigate('/training/models');
       }, 2000);

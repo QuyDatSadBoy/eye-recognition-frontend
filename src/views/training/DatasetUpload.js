@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Container, Card, Form, Button, Alert, ProgressBar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import TrainingController from '../../controllers/TrainingController';
+import DetectEyeDataTrainController from '../../controllers/DetectEyeDataTrainController';
 
 const DatasetUpload = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const DatasetUpload = () => {
     }, 500);
 
     try {
-      await TrainingController.uploadDataset(
+      await DetectEyeDataTrainController.createDetectEyeDataTrain(
         datasetName,
         file,
         description,
@@ -62,9 +62,8 @@ const DatasetUpload = () => {
         (data) => {
           clearInterval(interval);
           setProgress(100);
-          setSuccess(`Tải lên bộ dữ liệu thành công! ID: ${data.dataset_id}`);
+          setSuccess(`Tải lên bộ dữ liệu thành công! ID: ${data.training_data.id}`);
           
-          // Đặt timeout để chuyển hướng sau khi hiển thị thông báo
           setTimeout(() => {
             navigate('/training/datasets');
           }, 2000);

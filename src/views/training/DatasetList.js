@@ -4,7 +4,7 @@ import { Container, Card, Table, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faUpload, faDumbbell } from '@fortawesome/free-solid-svg-icons';
-import TrainingController from '../../controllers/TrainingController';
+import DetectEyeDataTrainController from '../../controllers/DetectEyeDataTrainController';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 const DatasetList = () => {
@@ -22,21 +22,21 @@ const DatasetList = () => {
     setError(null);
     
     try {
-      const data = await TrainingController.getAllDatasets();
-      setDatasets(data.datasets || []);
+      const data = await DetectEyeDataTrainController.getAllDetectEyeDataTrain();
+      setDatasets(data.training_data || []); // Note: cần check response structure từ backend
     } catch (err) {
       setError('Không thể tải danh sách bộ dữ liệu: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
-
+  
   const handleDelete = async (id) => {
     if (window.confirm('Bạn có chắc chắn muốn xóa bộ dữ liệu này?')) {
       setLoading(true);
       
       try {
-        await TrainingController.deleteDataset(id);
+        await DetectEyeDataTrainController.deleteDetectEyeDataTrain(id);
         alert('Xóa bộ dữ liệu thành công!');
         loadDatasets();
       } catch (err) {

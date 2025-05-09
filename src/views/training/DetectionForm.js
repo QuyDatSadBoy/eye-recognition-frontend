@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Form, Button, Alert, Row, Col, Image } from 'react-bootstrap';
-import TrainingController from '../../controllers/TrainingController';
+import EyeDetectionModelController from '../../controllers/EyeDetectionModelController';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 const DetectionForm = () => {
@@ -33,30 +33,21 @@ const DetectionForm = () => {
     setLoading(true);
     
     try {
-      const data = await TrainingController.getAllModels();
+      const data = await EyeDetectionModelController.getAllEyeDetectionModel();
       setModels(data.models || []);
-      
-      // Nếu không có modelId từ params, sử dụng model active
-      if (!modelId && data.models?.length > 0) {
-        const activeModel = data.models.find(m => m.isActive === 1);
-        if (activeModel) {
-          setSelectedModelId(activeModel.id);
-        } else {
-          setSelectedModelId(data.models[0].id);
-        }
-      }
+      // ... rest of the code
     } catch (err) {
       setError('Không thể tải danh sách mô hình: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
-
+  
   const loadModel = async (id) => {
     setLoading(true);
     
     try {
-      const data = await TrainingController.getModelById(id);
+      const data = await EyeDetectionModelController.getEyeDetectionModelById(id);
       setModel(data.model);
     } catch (err) {
       setError('Không thể tải thông tin mô hình: ' + err.message);
@@ -100,7 +91,7 @@ const DetectionForm = () => {
     setResult(null);
 
     try {
-      const data = await TrainingController.detectEyes(file, selectedModelId);
+      const data = await EyeDetectionModelController.detectEyesImage(file, selectedModelId);
       setResult(data);
     } catch (err) {
       setError('Lỗi khi nhận dạng: ' + err.message);

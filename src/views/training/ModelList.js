@@ -4,7 +4,7 @@ import { Container, Card, Table, Button, Alert, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheck, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import TrainingController from '../../controllers/TrainingController';
+import EyeDetectionModelController from '../../controllers/EyeDetectionModelController';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 const ModelList = () => {
@@ -21,7 +21,7 @@ const ModelList = () => {
     setError(null);
     
     try {
-      const data = await TrainingController.getAllModels();
+      const data = await EyeDetectionModelController.getAllEyeDetectionModel();
       setModels(data.models || []);
     } catch (err) {
       setError('Không thể tải danh sách mô hình: ' + err.message);
@@ -29,12 +29,12 @@ const ModelList = () => {
       setLoading(false);
     }
   };
-
+  
   const handleActivate = async (id) => {
     setLoading(true);
     
     try {
-      await TrainingController.activateModel(id);
+      await EyeDetectionModelController.activateModel(id);
       alert('Kích hoạt mô hình thành công!');
       loadModels();
     } catch (err) {
@@ -42,13 +42,13 @@ const ModelList = () => {
       setLoading(false);
     }
   };
-
+  
   const handleDelete = async (id) => {
     if (window.confirm('Bạn có chắc chắn muốn xóa mô hình này?')) {
       setLoading(true);
       
       try {
-        await TrainingController.deleteModel(id);
+        await EyeDetectionModelController.deleteEyeDetectionModel(id);
         alert('Xóa mô hình thành công!');
         loadModels();
       } catch (err) {

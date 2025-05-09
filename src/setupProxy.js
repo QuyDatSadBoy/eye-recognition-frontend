@@ -26,7 +26,15 @@ module.exports = function(app) {
   );
   
   app.use(
-    '/samples',
+    '/training-data',
+    createProxyMiddleware({
+      target: 'http://localhost:8000',
+      changeOrigin: true,
+    })
+  );
+  
+  app.use(
+    '/detect-data',
     createProxyMiddleware({
       target: 'http://localhost:8000',
       changeOrigin: true,
